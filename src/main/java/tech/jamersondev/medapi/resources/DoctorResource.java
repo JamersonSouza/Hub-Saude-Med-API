@@ -2,13 +2,14 @@ package tech.jamersondev.medapi.resources;
 
 import jakarta.validation.Valid;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import tech.jamersondev.medapi.domain.Doctor;
+import tech.jamersondev.medapi.domain.records.DoctorList;
 import tech.jamersondev.medapi.domain.records.DoctorObject;
 import tech.jamersondev.medapi.domain.records.PatientObject;
 import tech.jamersondev.medapi.services.DoctorService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("doctor")
@@ -24,5 +25,10 @@ public class DoctorResource {
     @Transactional
     public void saveDoctor(@RequestBody @Valid DoctorObject doctorObject) {
         this.doctorService.insertDoctor(doctorObject);
+    }
+
+    @GetMapping
+    public List<DoctorList> list(){
+       return this.doctorService.list();
     }
 }
