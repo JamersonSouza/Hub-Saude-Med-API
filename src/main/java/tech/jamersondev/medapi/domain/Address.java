@@ -1,6 +1,7 @@
 package tech.jamersondev.medapi.domain;
 
 import jakarta.persistence.*;
+import tech.jamersondev.medapi.domain.records.AddressObject;
 
 import java.util.UUID;
 
@@ -28,6 +29,16 @@ public class Address {
         this.complemento = complemento;
         this.uf = uf;
         this.cidade = cidade;
+    }
+
+    public Address(AddressObject address) {
+        this.logradouro = address.logradouro();
+        this.bairro = address.bairro();
+        this.cep = address.cep();
+        this.numero = address.numero();
+        this.complemento = address.complemento();
+        this.uf = address.uf();
+        this.cidade = address.cidade();
     }
 
     public UUID getAddressIdentifier() {

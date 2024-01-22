@@ -2,6 +2,7 @@ package tech.jamersondev.medapi.domain;
 
 import jakarta.persistence.*;
 import tech.jamersondev.medapi.domain.enums.SpecialtyEnum;
+import tech.jamersondev.medapi.domain.records.DoctorObject;
 
 import java.util.UUID;
 
@@ -30,6 +31,14 @@ public class Doctor {
         this.crm = crm;
         this.specialty = specialty;
         this.address = address;
+    }
+
+    public Doctor(DoctorObject doctorObj) {
+        this.nome = doctorObj.nome();
+        this.email = doctorObj.email();
+        this.crm = doctorObj.crm();
+        this.specialty = doctorObj.specialty();
+        this.address = new Address(doctorObj.address());
     }
 
     public UUID getDoctorIdentifier() {
