@@ -1,5 +1,7 @@
 package tech.jamersondev.medapi.services;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import tech.jamersondev.medapi.domain.Doctor;
 import tech.jamersondev.medapi.domain.records.DoctorList;
@@ -20,7 +22,8 @@ public class DoctorService {
         return this.doctorRepository.save(new Doctor(doctorObj));
     }
 
-    public List<DoctorList> list(){
-        return this.doctorRepository.findAll().stream().map(DoctorList::new).toList();
+    public Page<DoctorList> list(Pageable pageable){
+        //return this.doctorRepository.findAll(pageable).stream().map(DoctorList::new).toList();
+        return this.doctorRepository.findAll(pageable).map(DoctorList::new);
     }
 }
