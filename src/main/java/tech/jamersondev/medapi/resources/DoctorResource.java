@@ -1,5 +1,7 @@
 package tech.jamersondev.medapi.resources;
 
+import jakarta.validation.Valid;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +21,8 @@ public class DoctorResource {
     }
 
     @PostMapping
-    public void saveDoctor(@RequestBody DoctorObject doctorObject) {
+    @Transactional
+    public void saveDoctor(@RequestBody @Valid DoctorObject doctorObject) {
         this.doctorService.insertDoctor(doctorObject);
     }
 }

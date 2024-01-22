@@ -1,0 +1,1 @@
+--ALTER TABLE doctor add telefone varchar(32) not null;

@@ -32,6 +32,7 @@ public class Address {
     }
 
     public Address(AddressObject address) {
+        this.addressIdentifier = UUID.randomUUID();
         this.logradouro = address.logradouro();
         this.bairro = address.bairro();
         this.cep = address.cep();

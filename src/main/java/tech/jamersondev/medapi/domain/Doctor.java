@@ -16,6 +16,7 @@ public class Doctor {
     private String nome;
     private String email;
     private String  crm;
+    private String telefone;
     @Enumerated(EnumType.STRING)
     private SpecialtyEnum specialty;
     @Embedded
@@ -38,6 +39,7 @@ public class Doctor {
         this.email = doctorObj.email();
         this.crm = doctorObj.crm();
         this.specialty = doctorObj.specialty();
+        this.telefone = doctorObj.telefone();
         this.address = new Address(doctorObj.address());
     }
 
@@ -87,5 +89,13 @@ public class Doctor {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 }
