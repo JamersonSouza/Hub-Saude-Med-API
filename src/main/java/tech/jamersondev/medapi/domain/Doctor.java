@@ -3,6 +3,7 @@ package tech.jamersondev.medapi.domain;
 import jakarta.persistence.*;
 import tech.jamersondev.medapi.domain.enums.SpecialtyEnum;
 import tech.jamersondev.medapi.domain.records.DoctorObject;
+import tech.jamersondev.medapi.domain.records.DoctorUpdate;
 
 import java.util.UUID;
 
@@ -97,5 +98,11 @@ public class Doctor {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public void updateInformations(DoctorUpdate doctorUpdate) {
+        this.nome = doctorUpdate.nome() != null  ? doctorUpdate.nome() : this.nome;
+        this.telefone = doctorUpdate.telefone() != null ? doctorUpdate.telefone() : this.telefone;
+        this.address = doctorUpdate.address() != null ? this.address.updateAddress(doctorUpdate.address()) : this.address;
     }
 }

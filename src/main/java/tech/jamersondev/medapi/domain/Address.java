@@ -42,6 +42,17 @@ public class Address {
         this.cidade = address.cidade();
     }
 
+    public Address updateAddress(AddressObject address) {
+        this.logradouro = address.logradouro() != null ? address.logradouro() : this.logradouro;
+        this.bairro = address.bairro() != null ? address.bairro() : this.bairro;
+        this.cep = address.cep() != null ? address.cep() : this.cep;
+        this.numero = address.numero() != null ? address.numero() : this.numero;
+        this.complemento = address.complemento() != null ? address.complemento() : this.complemento;
+        this.uf = address.uf() != null ? address.uf() : this.uf;
+        this.cidade = address.cidade() != null ? address.cidade() : this.cidade;
+        return null;
+    }
+
     public UUID getAddressIdentifier() {
         return addressIdentifier;
     }

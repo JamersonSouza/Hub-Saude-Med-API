@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.*;
 import tech.jamersondev.medapi.domain.Doctor;
 import tech.jamersondev.medapi.domain.records.DoctorList;
 import tech.jamersondev.medapi.domain.records.DoctorObject;
+import tech.jamersondev.medapi.domain.records.DoctorUpdate;
 import tech.jamersondev.medapi.domain.records.PatientObject;
 import tech.jamersondev.medapi.services.DoctorService;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("doctor")
@@ -33,5 +35,17 @@ public class DoctorResource {
     @GetMapping
     public Page<DoctorList> list( @PageableDefault(size = 12, sort = {"nome"}) Pageable pageable){
        return this.doctorService.list(pageable);
+    }
+
+    @PutMapping
+    @Transactional
+    public void update(@RequestBody @Valid DoctorUpdate doctorUpdate){
+        this.doctorService.update(doctorUpdate);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void delete(@PathVariable UUID id){
+
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import tech.jamersondev.medapi.domain.Doctor;
 import tech.jamersondev.medapi.domain.records.DoctorList;
 import tech.jamersondev.medapi.domain.records.DoctorObject;
+import tech.jamersondev.medapi.domain.records.DoctorUpdate;
 import tech.jamersondev.medapi.repositorys.DoctorRepository;
 
 import java.util.List;
@@ -25,5 +26,10 @@ public class DoctorService {
     public Page<DoctorList> list(Pageable pageable){
         //return this.doctorRepository.findAll(pageable).stream().map(DoctorList::new).toList();
         return this.doctorRepository.findAll(pageable).map(DoctorList::new);
+    }
+
+    public void update(DoctorUpdate doctorUpdate) {
+        Doctor doctor = this.doctorRepository.getReferenceById(doctorUpdate.doctorIdentifier());
+        doctor.updateInformations(doctorUpdate);
     }
 }
