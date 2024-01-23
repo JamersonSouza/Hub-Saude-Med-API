@@ -5,6 +5,7 @@ import tech.jamersondev.medapi.domain.enums.SpecialtyEnum;
 import tech.jamersondev.medapi.domain.records.DoctorObject;
 import tech.jamersondev.medapi.domain.records.DoctorUpdate;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -23,6 +24,10 @@ public class Doctor {
     @Embedded
     private Address address;
 
+    private boolean isActive;
+
+    private Date deletedDate;
+
     public Doctor() {
     }
 
@@ -36,12 +41,19 @@ public class Doctor {
     }
 
     public Doctor(DoctorObject doctorObj) {
+        this.isActive = true;
         this.nome = doctorObj.nome();
         this.email = doctorObj.email();
         this.crm = doctorObj.crm();
         this.specialty = doctorObj.specialty();
         this.telefone = doctorObj.telefone();
         this.address = new Address(doctorObj.address());
+    }
+
+    public void updateInformations(DoctorUpdate doctorUpdate) {
+        this.nome = doctorUpdate.nome() != null  ? doctorUpdate.nome() : this.nome;
+        this.telefone = doctorUpdate.telefone() != null ? doctorUpdate.telefone() : this.telefone;
+        this.address = doctorUpdate.address() != null ? this.address.updateAddress(doctorUpdate.address()) : this.address;
     }
 
     public UUID getDoctorIdentifier() {
@@ -100,9 +112,24 @@ public class Doctor {
         this.telefone = telefone;
     }
 
-    public void updateInformations(DoctorUpdate doctorUpdate) {
-        this.nome = doctorUpdate.nome() != null  ? doctorUpdate.nome() : this.nome;
-        this.telefone = doctorUpdate.telefone() != null ? doctorUpdate.telefone() : this.telefone;
-        this.address = doctorUpdate.address() != null ? this.address.updateAddress(doctorUpdate.address()) : this.address;
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public Date getDeletedDate() {
+        return deletedDate;
+    }
+
+    public void setDeletedDate(Date deletedDate) {
+        this.deletedDate = deletedDate;
+    }
+
+    public void deleteLogic() {
+        this.isActive = false;
+        this.deletedDate = new Date();
     }
 }

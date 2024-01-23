@@ -46,6 +46,6 @@ public class DoctorResource {
     @DeleteMapping("/{id}")
     @Transactional
     public void delete(@PathVariable UUID id){
-
+        this.doctorService.deleteLogic(id);
     }
 }

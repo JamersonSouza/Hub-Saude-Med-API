@@ -10,6 +10,7 @@ import tech.jamersondev.medapi.domain.records.DoctorUpdate;
 import tech.jamersondev.medapi.repositorys.DoctorRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class DoctorService {
@@ -25,11 +26,24 @@ public class DoctorService {
 
     public Page<DoctorList> list(Pageable pageable){
         //return this.doctorRepository.findAll(pageable).stream().map(DoctorList::new).toList();
-        return this.doctorRepository.findAll(pageable).map(DoctorList::new);
+        //return this.doctorRepository.findAll(pageable).map(DoctorList::new);
+        return this.doctorRepository.findAllByIsActiveTrue(pageable).map(DoctorList::new);
     }
 
     public void update(DoctorUpdate doctorUpdate) {
         Doctor doctor = this.doctorRepository.getReferenceById(doctorUpdate.doctorIdentifier());
         doctor.updateInformations(doctorUpdate);
     }
+
+    //deleção física
+    public void delete(UUID id){
+        this.doctorRepository.deleteById(id);
+    }
+
+    //deleção lógica
+    public void deleteLogic(UUID id){
+        Doctor doctor = this.doctorRepository.getReferenceById(id);
+        doctor.deleteLogic();
+    }
+
 }
