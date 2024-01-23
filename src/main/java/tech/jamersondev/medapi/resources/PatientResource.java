@@ -1,9 +1,9 @@
 package tech.jamersondev.medapi.resources;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.*;
+import tech.jamersondev.medapi.domain.records.PatientList;
 import tech.jamersondev.medapi.domain.records.PatientObject;
 import tech.jamersondev.medapi.services.PatientService;
 
@@ -22,6 +22,9 @@ public class PatientResource {
         this.patientService.savePatient(patientObject);
     }
 
-
+    @GetMapping
+    public Page<PatientList> list(Pageable pageable){
+       return this.patientService.listPatients(pageable);
+    }
 
 }

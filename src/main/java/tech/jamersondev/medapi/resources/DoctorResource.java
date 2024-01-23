@@ -1,6 +1,9 @@
 package tech.jamersondev.medapi.resources;
 
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import tech.jamersondev.medapi.domain.Doctor;
@@ -28,7 +31,7 @@ public class DoctorResource {
     }
 
     @GetMapping
-    public List<DoctorList> list(){
-       return this.doctorService.list();
+    public Page<DoctorList> list( @PageableDefault(size = 12, sort = {"nome"}) Pageable pageable){
+       return this.doctorService.list(pageable);
     }
 }
