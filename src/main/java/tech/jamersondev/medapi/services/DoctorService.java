@@ -30,9 +30,10 @@ public class DoctorService {
         return this.doctorRepository.findAllByIsActiveTrue(pageable).map(DoctorList::new);
     }
 
-    public void update(DoctorUpdate doctorUpdate) {
-        Doctor doctor = this.doctorRepository.getReferenceById(doctorUpdate.doctorIdentifier());
+    public Doctor update(DoctorUpdate doctorUpdate, UUID doctorUUID) {
+        Doctor doctor = this.doctorRepository.getReferenceById(doctorUUID);
         doctor.updateInformations(doctorUpdate);
+        return doctor;
     }
 
     //deleção física

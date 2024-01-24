@@ -2,6 +2,7 @@ package tech.jamersondev.medapi.domain.records;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import tech.jamersondev.medapi.domain.Address;
 
 public record AddressObject(@NotBlank(message = "{logradouro.not.null.or.blank}")
                             String logradouro,
@@ -16,4 +17,9 @@ public record AddressObject(@NotBlank(message = "{logradouro.not.null.or.blank}"
                             String uf,
                             String complemento,
                             String numero) {
+
+    public AddressObject (Address address){
+        this(address.getLogradouro(), address.getBairro(), address.getCep(),
+                address.getCidade(), address.getUf(), address.getComplemento(), address.getNumero());
+    }
 }

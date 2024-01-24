@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import tech.jamersondev.medapi.domain.Doctor;
 import tech.jamersondev.medapi.domain.enums.SpecialtyEnum;
 
 public record DoctorObject(
@@ -23,4 +24,9 @@ public record DoctorObject(
         @NotNull
         @Valid
         AddressObject address) {
+
+        public DoctorObject (Doctor doctor){
+                this(doctor.getNome(), doctor.getEmail(), doctor.getCrm(), doctor.getTelefone(), doctor.getSpecialty(),
+                        new AddressObject(doctor.getAddress()));
+        }
 }
