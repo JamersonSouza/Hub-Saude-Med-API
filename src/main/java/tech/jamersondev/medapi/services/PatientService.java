@@ -6,7 +6,10 @@ import org.springframework.stereotype.Service;
 import tech.jamersondev.medapi.domain.Patient;
 import tech.jamersondev.medapi.domain.records.PatientList;
 import tech.jamersondev.medapi.domain.records.PatientObject;
+import tech.jamersondev.medapi.domain.records.PatientUpdate;
 import tech.jamersondev.medapi.repositorys.PatientRepository;
+
+import java.util.UUID;
 
 @Service
 public class PatientService {
@@ -22,7 +25,18 @@ public class PatientService {
     }
 
     public Page<PatientList> listPatients(Pageable pageable){
-        return this.patientRepository.findAll(pageable).map(PatientList::new);
+        return this.patientRepository.findAllByIsActiveTrue(pageable).map(PatientList::new);
+    }
+
+    public void deleteLogic(UUID id) {
+        Patient patient = this.patientRepository.getReferenceById(id);
+        patient.delete();
+    }
+
+    public Patient updatePatient(PatientUpdate patientUpdate, UUID patientUUID) {
+        Patient patient = this.patientRepository.getReferenceById(patientUUID);
+        patient.updateInformations(patientUpdate);
+        return patient;
     }
 }
 

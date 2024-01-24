@@ -46,14 +46,15 @@ public class DoctorResource {
 
     @PutMapping("/{doctorUUID}")
     @Transactional
-    public ResponseEntity<DoctorList> update(@RequestBody @Valid DoctorUpdate doctorUpdate, @PathVariable UUID doctorUUID){
+    public ResponseEntity<DoctorList> update(@RequestBody @Valid DoctorUpdate doctorUpdate,
+                                             @PathVariable UUID doctorUUID){
         Doctor updateDoctor = this.doctorService.update(doctorUpdate, doctorUUID);
         return ResponseEntity.ok(new DoctorList(updateDoctor));
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<Doctor> delete(@PathVariable UUID id){
+    public ResponseEntity<DoctorObject> delete(@PathVariable UUID id){
         this.doctorService.deleteLogic(id);
         return ResponseEntity.noContent().build();
     }
