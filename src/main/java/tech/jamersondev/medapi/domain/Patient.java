@@ -28,6 +28,7 @@ public class Patient {
     }
 
     public Patient(PatientObject patientObject) {
+        this.isActive = true;
         this.nome = patientObject.nome();
         this.email = patientObject.email();
         this.cpf = patientObject.cpf();
@@ -99,7 +100,7 @@ public class Patient {
         this.deletedDate = deletedDate;
     }
 
-    public void delete() {
+    public void deleteLogic() {
         this.isActive = false;
         this.deletedDate = new Date();
     }

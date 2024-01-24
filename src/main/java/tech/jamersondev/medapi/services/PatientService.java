@@ -30,7 +30,7 @@ public class PatientService {
 
     public void deleteLogic(UUID id) {
         Patient patient = this.patientRepository.getReferenceById(id);
-        patient.delete();
+        patient.deleteLogic();
     }
 
     public Patient updatePatient(PatientUpdate patientUpdate, UUID patientUUID) {

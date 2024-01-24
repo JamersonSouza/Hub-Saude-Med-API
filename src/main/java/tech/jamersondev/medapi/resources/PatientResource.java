@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import tech.jamersondev.medapi.domain.Patient;
@@ -38,13 +39,15 @@ public class PatientResource {
         return ResponseEntity.ok(patientLists);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<PatientObject> deletePatient(@PathVariable UUID id){
-        this.patientService.deleteLogic(id);
+    @DeleteMapping("/{patientUUID}")
+    @Transactional
+    public ResponseEntity<PatientObject> deletePatient(@PathVariable UUID patientUUID){
+        this.patientService.deleteLogic(patientUUID);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{patientUUID}")
+    @Transactional
     public ResponseEntity<PatientList> updatePatient(@RequestBody @Valid PatientUpdate patientUpdate,
                                                        @PathVariable UUID patientUUID){
         Patient patient = this.patientService.updatePatient(patientUpdate, patientUUID);
