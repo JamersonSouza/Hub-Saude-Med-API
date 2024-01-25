@@ -47,4 +47,8 @@ public class DoctorService {
         doctor.deleteLogic();
     }
 
+    public Doctor findDoctorByUUID(UUID doctorUUID) {
+        Doctor doctor = this.doctorRepository.getReferenceById(doctorUUID);
+        return doctor;
+    }
 }

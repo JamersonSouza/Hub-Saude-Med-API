@@ -38,5 +38,10 @@ public class PatientService {
         patient.updateInformations(patientUpdate);
         return patient;
     }
+
+    public Patient findPatientByUUID(UUID patientUUID) {
+        Patient patient = this.patientRepository.getReferenceById(patientUUID);
+        return patient;
+    }
 }
 

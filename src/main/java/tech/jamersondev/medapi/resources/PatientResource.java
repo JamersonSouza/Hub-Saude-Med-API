@@ -14,6 +14,7 @@ import tech.jamersondev.medapi.domain.records.PatientUpdate;
 import tech.jamersondev.medapi.services.PatientService;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.UUID;
 
 @RestController
@@ -27,6 +28,7 @@ public class PatientResource {
     }
 
     @PostMapping
+    @Transactional
     public ResponseEntity<PatientObject> savePatient(@RequestBody PatientObject patientObject, UriComponentsBuilder uriBuilder){
         Patient patient = this.patientService.savePatient(patientObject);
         URI uri = uriBuilder.path("/patient/{id}").buildAndExpand(patient.getPatientIdentifier()).toUri();
@@ -51,6 +53,12 @@ public class PatientResource {
     public ResponseEntity<PatientList> updatePatient(@RequestBody @Valid PatientUpdate patientUpdate,
                                                        @PathVariable UUID patientUUID){
         Patient patient = this.patientService.updatePatient(patientUpdate, patientUUID);
+        return ResponseEntity.ok().body(new PatientList(patient));
+    }
+
+    @GetMapping("/{patientUUID}")
+    public ResponseEntity<PatientList> findPatientByUUID(@PathVariable UUID patientUUID){
+        Patient patient = this.patientService.findPatientByUUID(patientUUID);
         return ResponseEntity.ok().body(new PatientList(patient));
     }
 }

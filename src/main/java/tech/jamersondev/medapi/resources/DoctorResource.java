@@ -7,17 +7,12 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import tech.jamersondev.medapi.domain.Doctor;
-import tech.jamersondev.medapi.domain.records.DoctorList;
-import tech.jamersondev.medapi.domain.records.DoctorObject;
-import tech.jamersondev.medapi.domain.records.DoctorUpdate;
-import tech.jamersondev.medapi.domain.records.PatientObject;
+import tech.jamersondev.medapi.domain.records.*;
 import tech.jamersondev.medapi.services.DoctorService;
 
 import java.net.URI;
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -57,5 +52,11 @@ public class DoctorResource {
     public ResponseEntity<DoctorObject> delete(@PathVariable UUID id){
         this.doctorService.deleteLogic(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{doctorUUID}")
+    public ResponseEntity<DoctorList> findDoctorByUUID(@PathVariable UUID doctorUUID){
+        Doctor doctor = this.doctorService.findDoctorByUUID(doctorUUID);
+        return ResponseEntity.ok().body(new DoctorList(doctor));
     }
 }
