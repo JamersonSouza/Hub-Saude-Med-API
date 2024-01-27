@@ -10,24 +10,31 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import tech.jamersondev.medapi.security.SecurityFilterJWT;
 
 @Configuration
 @EnableWebSecurity
 public class ConfigSecurity {
 
+    private SecurityFilterJWT securityFilterJWT;
+
+    public ConfigSecurity(SecurityFilterJWT securityFilterJWT) {
+        this.securityFilterJWT = securityFilterJWT;
+    }
+
     @Bean
     public SecurityFilterChain securityFilter(HttpSecurity http) throws Exception{
-          return http
-                  .headers(headers -> headers
+                  http.headers(headers -> headers
                           .frameOptions(f -> f.sameOrigin()))
-                  .csrf(c -> c.ignoringRequestMatchers("/h2").disable())
+                  .csrf(c -> c.disable())
                   .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                  .authorizeHttpRequests((auth) ->
-                          auth.requestMatchers("/h2/**").permitAll()
-                              .requestMatchers(HttpMethod.POST,"/new-user", "/login").permitAll()
-                          .anyRequest().authenticated())
-
-                  .build();
+                  .authorizeHttpRequests(req -> {
+                    req.requestMatchers("/new-user", "/login").permitAll();
+                    req.anyRequest().authenticated();
+                  })
+                  .addFilterBefore(securityFilterJWT, UsernamePasswordAuthenticationFilter.class);
+                return http.build();
     }
 
     @Bean

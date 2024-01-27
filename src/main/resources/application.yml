@@ -1,13 +1,13 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
-  h2:
-    console:
-      enabled: true
-      path: "/h2"
+    url: jdbc:mysql://localhost:3306/hubsaude?allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: zero81
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#  h2:
+#    console:
+#      enabled: true
+#      path: "/h2"
 
 
   jpa:
@@ -18,3 +18,5 @@ spring:
 server:
   error:
     include-stacktrace: never
+
+api.security.token: ${JWT_SECRET:fDJLGpzWaltcQexKkMxTaw}

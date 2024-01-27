@@ -30,6 +30,11 @@ public class User implements UserDetails {
         this.userIdentifier = UUID.randomUUID();
     }
 
+    public User(UUID userIdentifier, String login) {
+        this.userIdentifier = userIdentifier;
+        this.login = login;
+    }
+
     public User() {
     }
 
