@@ -50,6 +50,10 @@ public class Doctor {
         this.address = new Address(doctorObj.address());
     }
 
+    public Doctor(String name){
+        this.nome = name;
+    }
+
     public void updateInformations(DoctorUpdate doctorUpdate) {
         this.nome = doctorUpdate.nome() != null  ? doctorUpdate.nome() : this.nome;
         this.telefone = doctorUpdate.telefone() != null ? doctorUpdate.telefone() : this.telefone;

@@ -29,4 +29,11 @@ public interface DoctorRepository extends JpaRepository<Doctor, UUID> {
             limit 1
             """)
     Doctor selectDoctorRandomBySpecialtyAvaliableDate(SpecialtyEnum specialty, LocalDateTime dateScheduling);
+
+    @Query("""
+            select d.isActive from Doctor
+            where d.doctorIdentifier = :doctorUUID
+            """)
+    Boolean findIsActiveByUUID(UUID doctorUUID);
+
 }
