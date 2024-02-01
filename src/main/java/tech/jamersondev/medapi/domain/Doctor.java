@@ -24,6 +24,7 @@ public class Doctor {
     @Embedded
     private Address address;
 
+    @Column(name = "isActive")
     private boolean isActive;
 
     private Date deletedDate;

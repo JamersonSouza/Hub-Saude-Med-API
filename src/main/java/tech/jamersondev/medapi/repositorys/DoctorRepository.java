@@ -14,26 +14,25 @@ import java.util.UUID;
 public interface DoctorRepository extends JpaRepository<Doctor, UUID> {
     Page<Doctor> findAllByIsActiveTrue(Pageable pageable);
 
-    @Query("""
-            select d from Doctor d
-            where
-            d.isActive = true
-            d.specialty = :specialty
-            and
-            d.doctorIdentifier not in (
-            select h.doctor.doctorIdentifier from HubScheduling
-            where
-            h.dateScheduling = : dateScheduling
-            )
-            order by rand()
-            limit 1
-            """)
+    @Query(value = """
+             SELECT d FROM Doctor d
+              WHERE
+              d.specialty = :specialty
+              AND
+              d.doctorIdentifier NOT IN (
+               SELECT h.doctor.doctorIdentifier FROM HubScheduling h
+               WHERE
+               h.dateScheduling = :dateScheduling
+               )
+              ORDER BY FUNCTION('RAND')
+              LIMIT 1
+            """, nativeQuery = false)
     Doctor selectDoctorRandomBySpecialtyAvaliableDate(SpecialtyEnum specialty, LocalDateTime dateScheduling);
 
-    @Query("""
-            select d.isActive from Doctor
+    @Query(value = """
+            select d from Doctor AS d
             where d.doctorIdentifier = :doctorUUID
-            """)
+            """, nativeQuery = false)
     Boolean findIsActiveByUUID(UUID doctorUUID);
 
 }

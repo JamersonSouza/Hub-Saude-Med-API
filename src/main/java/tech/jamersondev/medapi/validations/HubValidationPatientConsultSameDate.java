@@ -13,7 +13,7 @@ public class HubValidationPatientConsultSameDate implements ValidateSchedulingCo
     public void validation(SchedulingDetails schedulingDetails){//validatePatientConsultSameTime
         LocalDateTime firstHour = schedulingDetails.dateScheduling().withHour(7);
         LocalDateTime lastHour = schedulingDetails.dateScheduling().withHour(18);
-        boolean existsByPatientIdAndDataBetween = this.hubSchedulingRepository.existsByPatientIdAndDataBetween(schedulingDetails.patientIdentifier(), firstHour, lastHour);
+        boolean existsByPatientIdAndDataBetween = this.hubSchedulingRepository.existsByPatientPatientIdentifierAndDateSchedulingBetween(schedulingDetails.patientIdentifier(), firstHour, lastHour);
         if(existsByPatientIdAndDataBetween){
             throw new ValidationException("Paciente já possui uma consulta agendada neste dia");
         }

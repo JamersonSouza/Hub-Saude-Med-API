@@ -13,7 +13,7 @@ public class HubValidationDoctorConsultOthersDates implements ValidateScheduling
     }
 
     public void validation(SchedulingDetails schedulingDetails) {//validatedConsultOtherDate
-        boolean consultOtherDateAndSameTime = this.hubSchedulingRepository.existsByDoctorIdAndDate(schedulingDetails.doctorIdentifier(), schedulingDetails.dateScheduling());
+        boolean consultOtherDateAndSameTime = this.hubSchedulingRepository.existsByDoctorDoctorIdentifierAndDateScheduling(schedulingDetails.doctorIdentifier(), schedulingDetails.dateScheduling());
         if(consultOtherDateAndSameTime){
             throw new ValidationException("Médico já possui consulta agendada nesse mesmo horário");
         }

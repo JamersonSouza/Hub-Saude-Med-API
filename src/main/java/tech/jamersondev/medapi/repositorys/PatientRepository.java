@@ -11,9 +11,9 @@ import java.util.UUID;
 public interface PatientRepository extends JpaRepository<Patient, UUID> {
     Page<Patient> findAllByIsActiveTrue(Pageable pageable);
 
-    @Query("""
-            select d.isActive from Patient
-            where d.patientIdentifier = :patientUUID
-            """)
+    @Query(value = """
+            select p from Patient AS p
+            where p.patientIdentifier = :patientUUID
+            """, nativeQuery = false)
     Boolean findIsActiveByUUID(UUID patientUUID);
 }
