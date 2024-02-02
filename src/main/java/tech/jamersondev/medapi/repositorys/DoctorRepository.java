@@ -17,6 +17,8 @@ public interface DoctorRepository extends JpaRepository<Doctor, UUID> {
     @Query(value = """
              SELECT d FROM Doctor d
               WHERE
+              d.isActive
+              AND
               d.specialty = :specialty
               AND
               d.doctorIdentifier NOT IN (
@@ -30,7 +32,7 @@ public interface DoctorRepository extends JpaRepository<Doctor, UUID> {
     Doctor selectDoctorRandomBySpecialtyAvaliableDate(SpecialtyEnum specialty, LocalDateTime dateScheduling);
 
     @Query(value = """
-            select d from Doctor AS d
+            select d.isActive from Doctor AS d
             where d.doctorIdentifier = :doctorUUID
             """, nativeQuery = false)
     Boolean findIsActiveByUUID(UUID doctorUUID);

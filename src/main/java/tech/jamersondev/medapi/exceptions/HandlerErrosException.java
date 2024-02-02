@@ -23,4 +23,9 @@ public class HandlerErrosException {
         List<FieldError> fieldErrors = exception.getFieldErrors();
         return ResponseEntity.badRequest().body(fieldErrors.stream().map(ErrosValidation::new).toList());
     }
+
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity handlerErrorValidationException(ValidationException ex){
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
 }
