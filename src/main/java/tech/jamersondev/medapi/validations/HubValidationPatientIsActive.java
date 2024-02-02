@@ -19,7 +19,7 @@ public class HubValidationPatientIsActive implements ValidateSchedulingConsult{
         if(schedulingDetails.patientIdentifier() == null){
             return;
         }
-        Boolean isActiveByUUID = this.patientRepository.findIsActiveByUUID(schedulingDetails.doctorIdentifier());
+        Boolean isActiveByUUID = this.patientRepository.findPatientIsActiveByUUID(schedulingDetails.patientIdentifier());
         if(!isActiveByUUID){
             throw new ValidationException("Consulta não pode ser agendada, paciente excluído");
         }

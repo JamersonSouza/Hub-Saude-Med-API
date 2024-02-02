@@ -15,7 +15,5 @@ public interface PatientRepository extends JpaRepository<Patient, UUID> {
             select p.isActive from Patient AS p
             where p.patientIdentifier = :patientUUID
             """, nativeQuery = false)
-    Boolean findIsActiveByUUID(UUID patientUUID);
-
-    Patient findByIsActive(UUID patientIdentifier);
+    Boolean findPatientIsActiveByUUID(UUID patientUUID);
 }

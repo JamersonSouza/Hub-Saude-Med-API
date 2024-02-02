@@ -12,6 +12,11 @@ import java.time.LocalDateTime;
 public class HubValidationPatientConsultSameDate implements ValidateSchedulingConsult{
 
     private HubSchedulingRepository hubSchedulingRepository;
+
+    public HubValidationPatientConsultSameDate(HubSchedulingRepository hubSchedulingRepository) {
+        this.hubSchedulingRepository = hubSchedulingRepository;
+    }
+
     public void validation(SchedulingDetails schedulingDetails){//validatePatientConsultSameTime
         LocalDateTime firstHour = schedulingDetails.dateScheduling().withHour(7);
         LocalDateTime lastHour = schedulingDetails.dateScheduling().withHour(18);
