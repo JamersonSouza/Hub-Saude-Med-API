@@ -1,5 +1,6 @@
 package tech.jamersondev.medapi.validations;
 
+import org.springframework.stereotype.Component;
 import tech.jamersondev.medapi.domain.Doctor;
 import tech.jamersondev.medapi.domain.records.SchedulingDetails;
 import tech.jamersondev.medapi.exceptions.ValidationException;
@@ -8,6 +9,7 @@ import tech.jamersondev.medapi.repositorys.DoctorRepository;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+@Component
 public class HubValidationDoctorIsActive implements ValidateSchedulingConsult{
 
     private final DoctorRepository doctorRepository;
