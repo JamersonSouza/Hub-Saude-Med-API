@@ -30,7 +30,8 @@ public class ConfigSecurity {
                   .csrf(c -> c.disable())
                   .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                   .authorizeHttpRequests(req -> {
-                    req.requestMatchers("/new-user", "/login").permitAll();
+                    req.requestMatchers("/new-user", "/login",
+                            "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll();
                     req.anyRequest().authenticated();
                   })
                   .addFilterBefore(securityFilterJWT, UsernamePasswordAuthenticationFilter.class);

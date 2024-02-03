@@ -1,5 +1,6 @@
 package tech.jamersondev.medapi.resources;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("doctor")
+@SecurityRequirement(name = "bearer-key")
 public class DoctorResource {
 
     private final DoctorService doctorService;

@@ -1,5 +1,6 @@
 package tech.jamersondev.medapi.resources;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,7 @@ import tech.jamersondev.medapi.services.HubSchedulingService;
 
 @RestController
 @RequestMapping("/hub-schedule")
+@SecurityRequirement(name = "bearer-key")
 public class HubSchedulingResource {
 
     private final HubSchedulingService schedulingService;
